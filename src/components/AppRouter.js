@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Registration from "./Registration";
 import Donate from "./Donate";
 import Home from "./Home";
-import Registration from "./Registration";
 import Vote from "./Vote";
 
 const AppRouter = () => {
