@@ -125,7 +125,7 @@ export default function Home() {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-10">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Make a difference for the environment, one school at a time.
+              Create a positive impact on the environment, one school at a time.
             </h1>
             <div className="flex justify-center">
               <img
@@ -134,10 +134,10 @@ export default function Home() {
                 alt=""
               />
             </div>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-              fugiat aliqua.
+            <p className="mt-10 text-lg leading-8 text-white">
+              By participating in our project, you become part of a growing community that shares a common goal: creating a sustainable future through recycling. Together, we can make a significant impact on the environment and inspire others to join our cause.
+              <br /><br />
+              Join us today and be a catalyst for positive change. Together, let's promote recycling, earn rewards, and pave the way towards a greener, more sustainable world—one school at a time.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
