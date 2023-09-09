@@ -1,6 +1,5 @@
 import "./index.css";
 import AppRouter from "./components/AppRouter";
-
 import { Sepolia } from "@thirdweb-dev/chains";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 

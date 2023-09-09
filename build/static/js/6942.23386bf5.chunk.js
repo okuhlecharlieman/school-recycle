@@ -1,1 +1,0 @@
-(self.webpackChunkschool_recycle=self.webpackChunkschool_recycle||[]).push([[6942],{24654:function(){},52361:function(){},94616:function(){}}]);
