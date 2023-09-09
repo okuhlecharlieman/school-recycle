@@ -2,7 +2,7 @@ import "./index.css";
 import AppRouter from "./components/AppRouter";
 
 import { Sepolia } from "@thirdweb-dev/chains";
-import { ThirdwebProvider, useContract } from "@thirdweb-dev/react";
+import { ThirdwebProvider } from "@thirdweb-dev/react";
 
 function App() {
   return (
