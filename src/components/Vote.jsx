@@ -1,20 +1,61 @@
-import { useState } from "react";
+import { useState,useEffect, useRef } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ConnectWallet } from "@thirdweb-dev/react";
+import { useContract, useContractWrite, useContractEvents } from "@thirdweb-dev/react";
+import Logo from "../assets/logonewnew.png";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Donate", href: "/donate" },
+  { name: "Registration", href: "/registration" },
   { name: "Vote", href: "/vote" },
-  { name: "Registration", href: "registration" },
+  { name: "Donate", href: "/donate" },
 ];
 
-export default function Example() {
+export default function Vote() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { contract } = useContract("0xd6f7113551358EE1e20b5004F7EDA2f78723042e");
+  const { mutateAsync: vote, isLoading } = useContractWrite(contract, "vote");
+  const [schoolIndex, setSchoolIndex] = useState(0);
+  const { events: schoolEvents } = useContractEvents(contract, "SchoolAdded");
+  const [schools, setSchools] = useState([]);
+  const [error, setError] = useState(null); // State variable for error handling
+  const schoolArrayRef = useRef([]);
+
+  useEffect(() => {
+    if (schoolEvents && schoolEvents.length > 0) {
+      // Get the latest event.
+      const latestEvent = schoolEvents[schoolEvents.length - 1];
+
+      // Extract the school data from the event.
+      const school = latestEvent.returnValues.school;
+
+      // Update the schools array with the new school data.
+      schoolArrayRef.current = [...schoolArrayRef.current, school];
+      setSchools(schoolArrayRef.current);
+    }
+
+    console.log("schoolEvents", schoolEvents);
+  }, [schoolEvents]);
+
+  const handleSchoolChange = (e) => {
+    setSchoolIndex(e.target.value);
+  };
+
+  const handleVote = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = await vote({ args: [String(schoolIndex)] });
+      console.info("contract call success", data);
+    } catch (err) {
+      console.error("contract call failure", err);
+      setError("Failed to vote. Please try again."); // Update the error state
+    }
+  };
 
   return (
-    <div className="bg-gradient-to-bl from-green-200 to-green-500  py-32 sm:py-48 lg:py-79 ">
+    <div className="bg-gradient-to-bl from-green-200 to-green-500 py-[17rem] sm:py-[18rem] lg:py-[19rem] ">
       <header className="absolute inset-x-0 top-0 z-50  ">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
@@ -24,8 +65,8 @@ export default function Example() {
             <a href="#" className="-m-1.5 p-1.5 ">
               <span className="sr-only">Your Company</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=teal&shade=600"
+                className="h-20 w-auto"
+                src={Logo}
                 alt=""
               />
             </a>
@@ -40,12 +81,12 @@ export default function Example() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12">
+          <div className="hidden lg:flex lg:gap-x-20">
             {navigation.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="text-sm font-semibold leading-6 text-white"
+                className="text-sm font-semibold leading-6 text-white hover:text-black"
               >
                 {item.name}
               </a>
@@ -112,7 +153,7 @@ export default function Example() {
       <div className="relative px-6 pt-1 lg:px-8 mt-0 flex justify-center">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold tracking-tight mb-8">
-            Vote for a green school
+            Vote for a school!
           </h1>
           <div className="flex justify-center mb-8">
             <img
@@ -125,12 +166,30 @@ export default function Example() {
             brief voting story...and to cover the empty space
           </p>
           <div className="flex flex-col space-y-4">
-            <label className="text-lg">Amount:</label>
+            <label className="text-lg">Choose an option below:</label>
             <div className="flex space-x-4 justify-center">
-              <button className="px-4 py-2 bg-black  text-white font-medium rounded-md">
-                Vote
-              </button>
-            </div>
+            <select 
+              value={schoolIndex} 
+              onChange={handleSchoolChange}
+              className="w-full rounded-lg"
+            >
+              {schools.map((school, index) => (
+                <option key={index} value={index}>
+                  {school.event} 
+
+                  {/* Replace 'name' with the actual property you want to display */}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={handleVote}
+              className="px-4 py-2 bg-black  text-white font-medium rounded-md"
+              disabled={isLoading} // Disable the button during loading state
+            >
+              {isLoading ? "Voting..." : "Vote"} {/* Update button text during loading state */}
+            </button>
+          </div>
+            {error && <p className="text-red-500">{error}</p>} {/* Display error message if present */}
           </div>
         </div>
       </div>

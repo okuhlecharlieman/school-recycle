@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ConnectWallet } from "@thirdweb-dev/react";
+import Logo from "../assets/logonewnew.png";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Donate", href: "/donate" },
+  { name: "Registration", href: "/registration" },
   { name: "Vote", href: "/vote" },
-  { name: "Registration", href: "registration" },
+  { name: "Donate", href: "/donate" },
 ];
 
 export default function Home() {
@@ -24,8 +25,8 @@ export default function Home() {
             <a href="#" className="-m-1.5 p-1.5 ">
               <span className="sr-only">Your Company</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600"
+                className="h-20 w-auto"
+                src={Logo}
                 alt="Logo"
               />
             </a>

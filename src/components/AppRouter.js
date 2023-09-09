@@ -10,8 +10,8 @@ const AppRouter = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/donate" element={<Donate />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/donate" element={<Donate />} />
         <Route path="/vote" element={<Vote />} />
       </Routes>
     </Router>

@@ -2,20 +2,23 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ConnectWallet } from "@thirdweb-dev/react";
-import styled from "styled-components";
 import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import Logo from "../assets/logonewnew.png";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Donate", href: "/donate" },
-  { name: "Vote", href: "/vote" },
   { name: "Registration", href: "/registration" },
+  { name: "Vote", href: "/vote" },
+  { name: "Donate", href: "/donate" },
 ];
-
 export default function Registration() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [name, setName] = useState("");
 
+  const resetForm = () => {
+    setName("");
+  };
+  
   const { contract } = useContract(
     "0xd6f7113551358EE1e20b5004F7EDA2f78723042e"
   );
@@ -23,33 +26,6 @@ export default function Registration() {
     contract,
     "addSchool"
   );
-
-  const SchoolForm = styled.form`
-    width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-
-    .input-group {
-      margin-bottom: 10px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-  `;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,10 +37,13 @@ export default function Registration() {
     } catch (err) {
       console.error("contract call failure", err);
     }
+    resetForm();
   };
 
+
+
   return (
-    <section className="bg-gradient-to-bl from-green-200 to-green-500  py-32 sm:py-48 lg:py-79">
+    <section className="bg-gradient-to-bl from-green-200 to-green-500 py-[17rem] sm:py-[18rem] lg:py-[15rem]">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
@@ -74,8 +53,8 @@ export default function Registration() {
             <a href="#" className="-m-1.5 p-1.5 ">
               <span className="sr-only">Your Company</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=teal&shade=600"
+                className="h-20 w-auto"
+                src={Logo}
                 alt=""
               />
             </a>
@@ -90,12 +69,12 @@ export default function Registration() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12">
+          <div className="hidden lg:flex lg:gap-x-20">
             {navigation.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="text-sm font-semibold leading-6 text-white"
+                className="text-sm font-semibold leading-6 text-white hover:text-black"
               >
                 {item.name}
               </a>
@@ -158,8 +137,8 @@ export default function Registration() {
           </Dialog.Panel>
         </Dialog>
       </header>
-      <div className="relative px-6 pt-0 lg:px-8 mt-0 flex justify-center">
-        <div className="max-w-3xl mx-auto text-center">
+      <div className="px-6 pt-0 lg:px-8 mt-0 flex justify-center items-center">
+        <div className="max-w-3xl mx-auto text-center justify-center">
           <h1 className="text-4xl font-bold tracking-tight mb-8">
             Add your School
           </h1>
@@ -173,25 +152,27 @@ export default function Registration() {
           <p className="mt-10 text-lg leading-8 text-white">
             brief registration story...and to cover the empty space
           </p>
-          <div className="mt-10">
-            <SchoolForm>
-              <h1 className="">Add School</h1>
-              <div class="input-group">
+          <div className="mt-10 flex justify-center items-center">
+            <form className="w-500 mx-auto p-20 border border-gray-300 rounded-3xl shadow-sm shadow-black">
+              <h1 className="text-center pb-10 text-xl font-semibold">Add School</h1>
+              <div className="mb-4">
                 <input
                   type="text"
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="w-full p-3 border border-gray-300 rounded-lg text-center"
+                  placeholder="School Name"
                 />
               </div>
               <button
                 type="submit"
-                className="rounded-md bg-black px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:text-black hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+                className="w-full bg-black text-white px-3.5 py-2.5 text-sm font-semibold rounded shadow-sm hover:text-black hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
                 onClick={handleSubmit}
               >
-                Add School
+                {isLoading ? "Adding..." : "Add School"}
               </button>
-            </SchoolForm>
+            </form>
           </div>
         </div>
       </div>

@@ -4,12 +4,13 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ConnectWallet } from "@thirdweb-dev/react";
 import { useContract, useContractWrite } from "@thirdweb-dev/react";
 import "../styles/globals.css";
+import Logo from "../assets/logonewnew.png";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Donate", href: "/donate" },
-  { name: "Vote", href: "/vote" },
   { name: "Registration", href: "/registration" },
+  { name: "Vote", href: "/vote" },
+  { name: "Donate", href: "/donate" },
 ];
 
 export default function Donate() {
@@ -42,18 +43,18 @@ export default function Donate() {
   };
 
   return (
-    <section className="bg-gradient-to-bl from-green-200 to-green-500  py-32 sm:py-48 lg:py-79">
+    <section className="bg-gradient-to-bl from-green-200 to-green-500 py-[17rem] sm:py-[18rem] lg:py-[19rem]">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <a href="/" className="-m-1.5 p-1.5 ">
+            <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=teal&shade=600"
+                className="h-20 w-auto"
+                src={Logo}
                 alt=""
               />
             </a>
@@ -68,12 +69,12 @@ export default function Donate() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12">
+          <div className="hidden lg:flex lg:gap-x-20">
             {navigation.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="text-sm font-semibold leading-6 text-white"
+                className="text-sm font-semibold leading-6 text-white hover:text-black"
               >
                 {item.name}
               </a>
@@ -161,7 +162,7 @@ export default function Donate() {
                 type="number"
                 title="Rate"
                 id="rate"
-                className="form-control"
+                className="form-control text-center rounded-lg"
                 value={donationAmount}
                 min="0.00"
                 step="0.001"
