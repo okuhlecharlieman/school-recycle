@@ -16,35 +16,40 @@ export default function Registration() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [name, setName] = useState("");
 
-  const { contract } = useContract("0xd6f7113551358EE1e20b5004F7EDA2f78723042e");
-  const { mutateAsync: addSchool, isLoading } = useContractWrite(contract, "addSchool")
+  const { contract } = useContract(
+    "0xd6f7113551358EE1e20b5004F7EDA2f78723042e"
+  );
+  const { mutateAsync: addSchool, isLoading } = useContractWrite(
+    contract,
+    "addSchool"
+  );
 
   const SchoolForm = styled.form`
-  width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-
-  .input-group {
-    margin-bottom: 10px;
-  }
-
-  input {
-    width: 100%;
-    padding: 10px;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 3px;
-  }
+    border-radius: 5px;
 
-  button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-`;
+    .input-group {
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  `;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,10 +61,10 @@ export default function Registration() {
     } catch (err) {
       console.error("contract call failure", err);
     }
-  }
+  };
 
   return (
-    <section>
+    <section className="bg-gradient-to-bl from-green-200 to-green-500  py-32 sm:py-48 lg:py-79">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
@@ -153,20 +158,43 @@ export default function Registration() {
           </Dialog.Panel>
         </Dialog>
       </header>
-      <div className="mt-40">
-        <SchoolForm>
-          <h1 className="">Add School</h1>
-          <div class="input-group">
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+      <div className="relative px-6 pt-0 lg:px-8 mt-0 flex justify-center">
+        <div className="max-w-3xl mx-auto text-center">
+          <h1 className="text-4xl font-bold tracking-tight mb-8">
+            Add your School
+          </h1>
+          <div className="flex justify-center mb-8">
+            <img
+              className="h-20 w-auto rounded-2xl shadow-lg shadow-black mt-10"
+              src="https://www.fasa.co.za/wp-content/uploads/2022/11/Registration-of-Trading-As-names-by-companies-e1667909108895.jpg"
+              alt=""
             />
           </div>
-          <button type="submit" className="rounded-md bg-black px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:text-black hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700" onClick={handleSubmit}>Add School</button>
-        </SchoolForm>
+          <p className="mt-10 text-lg leading-8 text-white">
+            brief registration story...and to cover the empty space
+          </p>
+          <div className="mt-10">
+            <SchoolForm>
+              <h1 className="">Add School</h1>
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="rounded-md bg-black px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:text-black hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+                onClick={handleSubmit}
+              >
+                Add School
+              </button>
+            </SchoolForm>
+          </div>
+        </div>
       </div>
-      </section>
+    </section>
   );
 }

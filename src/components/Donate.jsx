@@ -14,8 +14,13 @@ const navigation = [
 
 export default function Donate() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { contract } = useContract("0xd6f7113551358EE1e20b5004F7EDA2f78723042e");
-  const { mutateAsync: donate, isLoading } = useContractWrite(contract, "donate");
+  const { contract } = useContract(
+    "0xd6f7113551358EE1e20b5004F7EDA2f78723042e"
+  );
+  const { mutateAsync: donate, isLoading } = useContractWrite(
+    contract,
+    "donate"
+  );
   const [donationAmount, setDonationAmount] = useState(0);
 
   const handleDonation = async () => {
@@ -26,7 +31,7 @@ export default function Donate() {
       if (isNaN(amount)) {
         throw new Error("Invalid donation amount");
       }
-  
+
       const amountInWei = amount * 1e18; // Convert donation amount to wei
       const data = await donate({ value: amountInWei.toString() }); // Pass donation amount as wei
       console.info("contract call success", data);
@@ -34,10 +39,10 @@ export default function Donate() {
     } catch (err) {
       console.error("contract call failure", err);
     }
-  }
+  };
 
   return (
-    <section className="bg-gradient-to-l from-green-200 to-green-500">
+    <section className="bg-gradient-to-bl from-green-200 to-green-500  py-32 sm:py-48 lg:py-79">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
@@ -132,15 +137,28 @@ export default function Donate() {
         </Dialog>
       </header>
 
-      <div className="relative px-6 pt-14 lg:px-8 mt-10 flex justify-center">
+      <div className="relative px-6 pt-0 lg:px-8 mt-0 flex justify-center">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold tracking-tight mb-8">Donate to Our Cause</h1>
+          <h1 className="text-4xl font-bold tracking-tight mb-8">
+            Donate to Our Cause
+          </h1>
+          <div className="flex justify-center mb-8">
+            <img
+              className="h-20 w-auto rounded-2xl shadow-lg shadow-black mt-10"
+              src="https://static8.depositphotos.com/1032932/957/i/450/depositphotos_9578847-stock-photo-falling-dollar-bills-from-money.jpg"
+              alt=""
+            />
+          </div>
+          <p className="mt-10 text-lg leading-8 text-white">
+            brief donation story...and to cover the empty space
+          </p>
           <div className="flex flex-col space-y-4">
             <label htmlFor="donationAmount" className="text-lg">
               Amount:
             </label>
             <div className="flex space-x-4 justify-center">
-              <input type="number"
+              <input
+                type="number"
                 title="Rate"
                 id="rate"
                 className="form-control"
@@ -148,13 +166,15 @@ export default function Donate() {
                 min="0.00"
                 step="0.001"
                 max="1.00"
-                precision={2}   //very important
+                precision={2} //very important
                 onChange={(e) =>
-                  setDonationAmount(parseFloat(e.target.value.replace(/[^0-9.]/g, "")))
+                  setDonationAmount(
+                    parseFloat(e.target.value.replace(/[^0-9.]/g, ""))
+                  )
                 }
               />
               <button
-                className="px-4 py-2 bg-gradient-to-l from-green-200 to-green-500 text-white font-medium rounded-md"
+                className="px-4 py-2 bg-black  text-white font-medium rounded-md"
                 onClick={handleDonation}
                 disabled={isLoading}
               >
