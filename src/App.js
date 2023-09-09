@@ -1,16 +1,21 @@
 import "./index.css";
-import AppRouter from "./components/AppRouter";
-import { Sepolia } from "@thirdweb-dev/chains";
-import { ThirdwebProvider } from "@thirdweb-dev/react";
+import HomePage from "./pages/HomePage";
+import RegistrationPage from "./pages/RegistrationPage";
+import DonatePage from "./pages/DonatePage";
+import VotePage from "./pages/VotePage";
+import { Router, Route, Routes } from "react-router-dom";
+
 
 function App() {
   return (
-    <ThirdwebProvider
-      activeChain={Sepolia}
-      clientId="25a829ead24405dd2578f1e875102fdd"
-    >
-      <AppRouter />
-    </ThirdwebProvider>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/registration" element={<RegistrationPage />} />
+        <Route exact path="/donate" element={<DonatePage />} />
+        <Route exact path="/vote" element={<VotePage />} />
+      </Routes>
+    </Router>
   )
 }
 
