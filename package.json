@@ -33,7 +33,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && npx thirdweb@latest upload build"
+    "deploy": "npx thirdweb@latest upload build"
   },
   "eslintConfig": {
     "extends": [
