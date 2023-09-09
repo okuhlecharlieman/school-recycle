@@ -5,7 +5,7 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 import Logo from "../assets/logonewnew.png";
 
 const navigation = [
-  { name: "Home", href: "/" },
+  { name: "Home", href: "/", current: true},
   { name: "Registration", href: "/registration" },
   { name: "Vote", href: "/vote" },
   { name: "Donate", href: "/donate" },
