@@ -15,13 +15,13 @@ Install the template with [thirdweb create](https://portal.thirdweb.com/cli/crea
 Install dependencies
 
 ```bash
-yarn
+npm install
 ```
 
 Start the server
 
 ```bash
-yarn start
+npm start
 ```
 
 ## Environment Variables
