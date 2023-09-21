@@ -1,20 +1,27 @@
-import { useState,useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ConnectWallet } from "@thirdweb-dev/react";
-import { useContract, useContractWrite, useContractEvents } from "@thirdweb-dev/react";
+import {
+  useContract,
+  useContractWrite,
+  useContractEvents,
+} from "@thirdweb-dev/react";
 import Logo from "../assets/logonewnew.png";
+import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Registration", href: "/registration" },
-  { name: "Vote", href: "/vote" },
-  { name: "Donate", href: "/donate" },
+  { name: "Home", to: "/" },
+  { name: "Registration", to: "/registration" },
+  { name: "Vote", to: "/vote" },
+  { name: "Donate", to: "/donate" },
 ];
 
 export default function Vote() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { contract } = useContract("0xd6f7113551358EE1e20b5004F7EDA2f78723042e");
+  const { contract } = useContract(
+    "0xd6f7113551358EE1e20b5004F7EDA2f78723042e"
+  );
   const { mutateAsync: vote, isLoading } = useContractWrite(contract, "vote");
   const [schoolIndex, setSchoolIndex] = useState(0);
   const { events: schoolEvents } = useContractEvents(contract, "SchoolAdded");
@@ -62,14 +69,10 @@ export default function Vote() {
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5 ">
+            <Link to="#" className="-m-1.5 p-1.5 ">
               <span className="sr-only">Your Company</span>
-              <img
-                className="h-20 w-auto"
-                src={Logo}
-                alt=""
-              />
-            </a>
+              <img className="h-20 w-auto" src={Logo} alt="" />
+            </Link>
           </div>
           <div className="flex lg:hidden">
             <button
@@ -83,13 +86,13 @@ export default function Vote() {
           </div>
           <div className="hidden lg:flex lg:gap-x-20">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.to}
                 className="text-sm font-semibold leading-6 text-white hover:text-black"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
           <div className="hidden  lg:flex lg:flex-1 lg:justify-end">
@@ -105,14 +108,14 @@ export default function Vote() {
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
+              <Link to="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img
                   className="h-8 w-auto"
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                   alt=""
                 />
-              </a>
+              </Link>
               <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -126,13 +129,13 @@ export default function Vote() {
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.to}
                       className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
                 <div className="py-6">
@@ -168,28 +171,30 @@ export default function Vote() {
           <div className="flex flex-col space-y-4">
             <label className="text-lg">Choose an option below:</label>
             <div className="flex space-x-4 justify-center">
-            <select 
-              value={schoolIndex} 
-              onChange={handleSchoolChange}
-              className="w-full rounded-lg"
-            >
-              {schools.map((school, index) => (
-                <option key={index} value={index}>
-                  {school.event} 
+              <select
+                value={schoolIndex}
+                onChange={handleSchoolChange}
+                className="w-full rounded-lg"
+              >
+                {schools.map((school, index) => (
+                  <option key={index} value={index}>
+                    {school.event}
 
-                  {/* Replace 'name' with the actual property you want to display */}
-                </option>
-              ))}
-            </select>
-            <button
-              onClick={handleVote}
-              className="px-4 py-2 bg-black  text-white font-medium rounded-md"
-              disabled={isLoading} // Disable the button during loading state
-            >
-              {isLoading ? "Voting..." : "Vote"} {/* Update button text during loading state */}
-            </button>
-          </div>
-            {error && <p className="text-red-500">{error}</p>} {/* Display error message if present */}
+                    {/* Replace 'name' with the actual property you want to display */}
+                  </option>
+                ))}
+              </select>
+              <button
+                onClick={handleVote}
+                className="px-4 py-2 bg-black  text-white font-medium rounded-md"
+                disabled={isLoading} // Disable the button during loading state
+              >
+                {isLoading ? "Voting..." : "Vote"}{" "}
+                {/* Update button text during loading state */}
+              </button>
+            </div>
+            {error && <p className="text-red-500">{error}</p>}{" "}
+            {/* Display error message if present */}
           </div>
         </div>
       </div>
